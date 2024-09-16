@@ -99,13 +99,13 @@ class UserController {
     const { id } = req.params;
 
     try {
-      const user = await userService.getById(id);
+      const currentUser = await userService.getById(id);
 
-      await userService.deleteImage(id);
+      const newUser = await userService.deleteImage(id);
 
-      deleteFile(user.imageUrl);
+      deleteFile(currentUser.imageUrl);
 
-      return res.status(200).send();
+      return res.status(200).json(newUser);
     } catch (error) {
       console.error("Controller error:", error.message);
       return res.status(400).send({ message: error.message });

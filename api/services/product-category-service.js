@@ -130,6 +130,8 @@ class ProductCategoryService {
       productCategory.imageUrl = null;
 
       await productCategory.save();
+
+      return await productCategory.reload();
     } catch (error) {
       console.error("Service error:", error.message);
       throw error;

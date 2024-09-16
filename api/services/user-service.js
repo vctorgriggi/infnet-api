@@ -151,6 +151,8 @@ class UserService {
       user.imageUrl = null;
 
       await user.save();
+
+      return await user.reload();
     } catch (error) {
       console.error("Service error:", error.message);
       throw error;

@@ -95,13 +95,13 @@ class ProductCategoryController {
     const { id } = req.params;
 
     try {
-      const productCategory = await productCategoryService.getById(id);
+      const currentProductCategory = await productCategoryService.getById(id);
 
-      await productCategoryService.deleteImage(id);
+      const newProductCategory = await productCategoryService.deleteImage(id);
 
-      deleteFile(productCategory.imageUrl);
+      deleteFile(currentProductCategory.imageUrl);
 
-      return res.status(200).send();
+      return res.status(200).json(newProductCategory);
     } catch (error) {
       console.error("Controller error:", error.message);
       return res.status(400).send({ message: error.message });
