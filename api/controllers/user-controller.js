@@ -53,9 +53,9 @@ class UserController {
     const imageUrl = req.file ? req.file.path : null;
 
     try {
-      const user = await userService.getById(id);
+      const currentUser = await userService.getById(id);
 
-      await userService.updateById({
+      const newUser = await userService.updateById({
         userId,
         id,
         firstName,
@@ -64,11 +64,11 @@ class UserController {
         imageUrl,
       });
 
-      if (user.imageUrl && imageUrl) {
-        deleteFile(user.imageUrl);
+      if (currentUser.imageUrl && imageUrl) {
+        deleteFile(currentUser.imageUrl);
       }
 
-      return res.status(200).json(user);
+      return res.status(200).json(newUser);
     } catch (error) {
       if (imageUrl) deleteFile(imageUrl);
       console.error("Controller error:", error.message);

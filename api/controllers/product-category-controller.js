@@ -52,19 +52,19 @@ class ProductCategoryController {
     const imageUrl = req.file ? req.file.path : null;
 
     try {
-      const productCategory = await productCategoryService.getById(id);
+      const currentProductCategory = await productCategoryService.getById(id);
 
-      await productCategoryService.updateById({
+      const newProductCategory = await productCategoryService.updateById({
         id,
         name,
         imageUrl,
       });
 
-      if (productCategory.imageUrl && imageUrl) {
-        deleteFile(productCategory.imageUrl);
+      if (currentProductCategory.imageUrl && imageUrl) {
+        deleteFile(currentProductCategory.imageUrl);
       }
 
-      return res.status(200).json(productCategory);
+      return res.status(200).json(newProductCategory);
     } catch (error) {
       if (imageUrl) deleteFile(imageUrl);
       console.error("Controller error:", error.message);
