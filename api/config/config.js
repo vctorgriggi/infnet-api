@@ -16,7 +16,9 @@ var config = {
     host: PG_HOST,
     dialect: "postgres",
     dialectOptions: {
-      // ssl: { require: true, rejectUnauthorized: true },
+      /**
+       *
+       */
     },
     connection: {
       options: `project=${ENDPOINT_ID}`,
